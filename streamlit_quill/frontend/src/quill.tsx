@@ -19,7 +19,7 @@ const Quill = ({ args }: QuillProps) => {
   const handleChange = (content: string, delta: any, source: any, editor: any) => {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
-      Streamlit.setComponentValue(content)
+      Streamlit.setComponentValue(args.html ? content : editor.getText())
     }, 200)
   }
 
@@ -30,20 +30,19 @@ const Quill = ({ args }: QuillProps) => {
       Streamlit.setFrameHeight()
     })
 
-    if (divRef.current) {
+    if (divRef.current)
       ro.observe(divRef.current)
-    }
 
-    return () => {
-      ro.disconnect()
-    }
+    return () => ro.disconnect()
   })
 
   return <div ref={divRef}>
     <ReactQuill
       defaultValue={args.defaultValue}
-      formats={args.formats}
-      modules={args.modules}
+      modules={{
+        toolbar: args.toolbar,
+        history: args.history
+      }}
       placeholder={args.placeholder}
       preserveWhitespace={args.preserveWhitespace}
       readOnly={args.readOnly}

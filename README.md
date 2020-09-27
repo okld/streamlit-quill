@@ -7,7 +7,7 @@
 In a python virtual environment, run:
 
 ```sh
-pip install https://github.com/Ghasel/streamlit-quill/releases/download/0.0.1/streamlit_quill-0.0.1-py3-none-any.whl
+pip install streamlit-quill
 ```
 
 ## Demo
@@ -18,4 +18,5 @@ To test this component, you can run the demo script:
 streamlit run https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo.py
 ```
 
-![Demo](examples/streamlit_quill_demo.png)
+![Demo 1](https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo_text.png)
+![Demo 2](https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo_html.png)

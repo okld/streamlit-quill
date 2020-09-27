@@ -14,18 +14,40 @@ else:
 def st_quill(
     value="",
     placeholder="",
-    formats=None,
-    modules=None,
-    preserve_whitespace=False,
-    read_only=False,
+    html=False,
+    toolbar=None,
+    history=None,
+    preserve_whitespace=True,
+    readonly=False,
     theme=None,
-    name=None,
     key=None
 ):
-    """Create a new instance of Quill.
+    """Quill Editor component.
 
     Parameters
     ----------
+    value : any
+        The text value of this widget when it first renders. This will be
+        cast to str internally.
+    placeholder : any
+        The text value of this widget when the editor is empty. It will be
+        cast to str internally.
+    html : bool
+        Choose whether component return editor's content as HTML or regular
+        text. Return regular text by default.
+    toolbar : list or None
+        Quill toolbar configuration. For more information, see
+        https://quilljs.com/docs/modules/toolbar/.
+    history : dict or None
+        Quill history configuration. For more information, see
+        https://quilljs.com/docs/modules/history/.
+    preserve_whitespace : bool
+        Choose whether multiple spaces are preserved on copy/paste or trimmed.
+        Spaces are preserved by default.
+    readonly : bool
+        Make the editor read only.
+    theme : str or None
+        The theme to use. If None, a default theme is used.
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
@@ -34,41 +56,44 @@ def st_quill(
     Returns
     -------
     str
-        The current content of the Quill editor.
+        The current content of Quill editor.
 
     """
-    if formats is None:
-        formats = [ 
-            "header", "font", "size",
-            "bold", "italic", "underline", "strike", "blockquote",
-            "list", "bullet", "indent",
-            "link", "image",
-        ]
-
-    if modules is None:
-        modules = {
-            "toolbar": [
-                [
-                    { "header": "1"},
-                    {"header": "2"},
-                    { "font": [] }
-                ],
-                [
-                    {"size": [] }
-                ],
-                [
-                    {"list": "ordered"},
-                    {"list": "bullet"}, 
-                    {"indent": "-1"},
-                    {"indent": "+1"}
-                ],
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                ["link", "image", "video"],
-                ["clean"]
+    if toolbar is None:
+        toolbar=[
+            [
+                'bold', 'italic', 'underline', 'strike',
+                {'script': 'sub'},
+                {'script': 'super'},
             ],
-            "clipboard": {
-                "matchVisual": False,
-            }
+            [
+                { 'background': []},
+                { 'color': [] },
+            ],          
+            [
+                { 'list': 'ordered'},
+                { 'list': 'bullet' },
+                { 'indent': '-1'},
+                { 'indent': '+1' },
+                { 'align': [] },
+            ],
+            [
+                { 'header': 1 },
+                { 'header': 2 },
+                { 'header': [1, 2, 3, 4, 5, 6, False] },
+            ],
+            ['blockquote', 'code-block', "clean"],
+            [
+                { 'size': ['small', False, 'large', 'huge'] },
+                { 'font': [] },
+            ],
+        ]
+    
+    if history is None:
+        history={
+            "delay": 1000,
+            "maxStack": 500,
+            "userOnly": False
         }
     
     if theme is None:
@@ -80,11 +105,12 @@ def st_quill(
 
     return _st_quill(
         defaultValue=str(value),
-        formats=formats,
-        modules=modules,
         placeholder=str(placeholder),
+        html=html,
+        toolbar=toolbar,
+        history=history,
         preserveWhitespace=preserve_whitespace,
-        readOnly=read_only or False,
+        readOnly=readonly or False,
         theme=theme,
         name=key or "quill",
         key=key,
@@ -95,5 +121,15 @@ def st_quill(
 if not _RELEASE:
     import streamlit as st
 
-    content = st_quill()
+    st.sidebar.title(":computer: Quill Editor")
+    placeholder = st.sidebar.text_input("Placeholder", "Some placeholder text")
+    html = st.sidebar.checkbox("Return HTML", False)
+    read_only = st.sidebar.checkbox("Read only", False)
+
+    content = st_quill(
+        placeholder=placeholder,
+        html=html,
+        readonly=read_only,
+    )
+
     st.write(content)
