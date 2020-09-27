@@ -6,6 +6,10 @@ import {
 import React, { useEffect, useRef } from "react"
 import ReactQuill from "react-quill"
 import ResizeObserver from "resize-observer-polyfill"
+import katex from "katex"
+
+import "katex/dist/katex.min.css"
+import "quill/dist/quill.snow.css"
 
 interface QuillProps extends ComponentProps {
   args: any
@@ -26,6 +30,8 @@ const Quill = ({ args }: QuillProps) => {
   useEffect(() => {
     Streamlit.setFrameHeight()
 
+    window.katex = katex
+
     const ro = new ResizeObserver(() => {
       Streamlit.setFrameHeight()
     })
@@ -41,12 +47,11 @@ const Quill = ({ args }: QuillProps) => {
       defaultValue={args.defaultValue}
       modules={{
         toolbar: args.toolbar,
-        history: args.history
+        history: args.history,
       }}
       placeholder={args.placeholder}
       preserveWhitespace={args.preserveWhitespace}
       readOnly={args.readOnly}
-      theme={args.theme}
       onChange={handleChange}
     />
   </div>

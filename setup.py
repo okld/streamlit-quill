@@ -4,7 +4,7 @@ import setuptools
 
 setuptools.setup(
     name="streamlit-quill",
-    version="0.0.2",
+    version="0.0.3",
     author="Ghasel",
     author_email="",
     description="Quill component for Streamlit",

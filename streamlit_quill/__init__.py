@@ -19,7 +19,6 @@ def st_quill(
     history=None,
     preserve_whitespace=True,
     readonly=False,
-    theme=None,
     key=None
 ):
     """Quill Editor component.
@@ -46,8 +45,6 @@ def st_quill(
         Spaces are preserved by default.
     readonly : bool
         Make the editor read only.
-    theme : str or None
-        The theme to use. If None, a default theme is used.
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
@@ -62,30 +59,35 @@ def st_quill(
     if toolbar is None:
         toolbar=[
             [
-                'bold', 'italic', 'underline', 'strike',
-                {'script': 'sub'},
-                {'script': 'super'},
+                "bold", "italic", "underline", "strike",
+                {"script": "sub"},
+                {"script": "super"},
             ],
             [
-                { 'background': []},
-                { 'color': [] },
+                {"background": []},
+                {"color": [] },
             ],          
             [
-                { 'list': 'ordered'},
-                { 'list': 'bullet' },
-                { 'indent': '-1'},
-                { 'indent': '+1' },
-                { 'align': [] },
+                {"list": "ordered"},
+                {"list": "bullet"},
+                {"indent": "-1"},
+                {"indent": "+1"},
+                {"align": []},
             ],
             [
-                { 'header': 1 },
-                { 'header': 2 },
-                { 'header': [1, 2, 3, 4, 5, 6, False] },
+                {"header": 1},
+                {"header": 2},
+                {"header": [1, 2, 3, 4, 5, 6, False]},
+                {"size": ["small", False, "large", "huge"]},
             ],
-            ['blockquote', 'code-block', "clean"],
             [
-                { 'size': ['small', False, 'large', 'huge'] },
-                { 'font': [] },
+                "formula", "blockquote", "code", "code-block", "clean"
+            ],
+            [
+                "link", "image"
+            ],
+            [
+                {"font": []}
             ],
         ]
     
@@ -95,13 +97,6 @@ def st_quill(
             "maxStack": 500,
             "userOnly": False
         }
-    
-    if theme is None:
-        theme = "snow"
-    elif theme == "core":
-        theme = None
-    else:
-        theme = str(theme)
 
     return _st_quill(
         defaultValue=str(value),
@@ -111,7 +106,6 @@ def st_quill(
         history=history,
         preserveWhitespace=preserve_whitespace,
         readOnly=readonly or False,
-        theme=theme,
         name=key or "quill",
         key=key,
         default=str(value),
