@@ -1,22 +1,39 @@
-# Streamlit Quill
+# 📝 Streamlit Quill
 
-[React Quill](https://github.com/zenoamaro/react-quill) component for [Streamlit](https://www.streamlit.io/).
+[![GitHub][github_badge]][github_link] [![PyPI][pypi_badge]][pypi_link] 
 
 ## Installation
-
-In a python virtual environment, run:
 
 ```sh
 pip install streamlit-quill
 ```
 
-## Demo
+## Getting started
 
-To test this component, you can run the demo script:
+```python
+import streamlit as st
 
-```sh
-streamlit run https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo.py
+from streamlit_quill import st_quill
+
+# Spawn a new Quill editor
+content = st_quill()
+
+# Display editor's content as you type
+content
 ```
 
-![Demo 1](https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo_text.png)
-![Demo 2](https://raw.githubusercontent.com/Ghasel/streamlit-quill/master/examples/streamlit_quill_demo_html.png)
+## Demo
+
+[![Open in Streamlit][share_badge]][share_link]
+
+[![Preview][share_img]][share_link]
+
+[share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
+[share_link]: https://share.streamlit.io/okld/streamlit-gallery/main?p=quill-editor
+[share_img]: https://raw.githubusercontent.com/okld/streamlit-quill/main/preview.png
+
+[github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
+[github_link]: https://github.com/okld/streamlit-quill
+
+[pypi_badge]: https://badgen.net/pypi/v/streamlit-quill?icon=pypi&color=black&label
+[pypi_link]: https://pypi.org/project/streamlit-quill
