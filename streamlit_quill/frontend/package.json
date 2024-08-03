@@ -14,7 +14,7 @@
     "katex": "^0.12.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-quill": "^2.0.0-beta.2",
+    "react-quill": "^2.0.0",
     "react-scripts": "3.4.1",
     "resize-observer-polyfill": "^1.5.1",
     "streamlit-component-lib": "^1.1.1",
